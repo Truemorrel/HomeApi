@@ -4,6 +4,7 @@ using HomeApi.Contracts.Models.Devices;
 using HomeApi.Contracts.Models.Home;
 using HomeApi.Contracts.Models.Rooms;
 using HomeApi.Data.Models;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace HomeApi
 {
@@ -27,6 +28,9 @@ namespace HomeApi
                 .ForMember(d => d.Location,
                     opt => opt.MapFrom(r => r.RoomLocation));
             CreateMap<AddRoomRequest, Room>();
+            CreateMap<RoomUpdateRequest, Room>()
+                .ForMember(m => m.GasConnected,
+                opt => opt.MapFrom(src => src.GasSupply ));
             CreateMap<Device, DeviceView>();
         }
     }
